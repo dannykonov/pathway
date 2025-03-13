@@ -4,11 +4,17 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 // Initialize Supabase client
 let supabase;
+
+// Wait for the Supabase library to load
 document.addEventListener('DOMContentLoaded', function() {
     try {
-        // Access the Supabase client from the global window object
-        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        console.log('Supabase initialized successfully');
+        // Check if the Supabase library is available
+        if (typeof window.supabase !== 'undefined') {
+            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            console.log('Supabase initialized successfully');
+        } else {
+            console.error('Supabase library not loaded');
+        }
     } catch (error) {
         console.error('Error initializing Supabase:', error);
     }

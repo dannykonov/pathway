@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Supabase should be initialized in config.js
-    console.log('DOM loaded, checking Supabase status...');
+    console.log('DOM loaded, initializing page...');
     
     // Handle FAQ accordion
     const faqItems = document.querySelectorAll('.faq-item');
@@ -44,26 +43,19 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.textContent = 'Submitting...';
             
             try {
-                // Check if Supabase is initialized
-                if (typeof supabase === 'undefined' || !supabase) {
-                    console.log('Supabase not initialized, trying to initialize now...');
-                    // Try to initialize Supabase if it's not already initialized
-                    if (typeof initializeSupabase === 'function') {
-                        initializeSupabase();
-                        // Wait a bit for initialization
-                        await new Promise(resolve => setTimeout(resolve, 500));
-                    }
-                    
-                    // If still not initialized, throw an error
-                    if (typeof supabase === 'undefined' || !supabase) {
-                        throw new Error('Supabase client not initialized');
-                    }
-                }
+                // Simulate API call with timeout
+                await new Promise(resolve => setTimeout(resolve, 1000));
                 
-                console.log('Attempting to insert email into Supabase...');
+                // Store email in localStorage for demonstration
+                const emails = JSON.parse(localStorage.getItem('waitlist-emails') || '[]');
+                emails.push({
+                    email: email,
+                    date: new Date().toISOString()
+                });
+                localStorage.setItem('waitlist-emails', JSON.stringify(emails));
                 
-                // For now, simulate a successful submission
-                console.log('Simulating successful submission for:', email);
+                console.log('Email stored in localStorage:', email);
+                console.log('All stored emails:', emails);
                 
                 // Success response
                 emailInput.value = '';
@@ -76,25 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     submitButton.textContent = originalText;
                 }, 2000);
                 
-                // Uncomment this when Supabase is working
-                /*
-                // Insert email into Supabase
-                const { data, error } = await supabase
-                    .from('waitlist')
-                    .insert([
-                        { email: email, signup_date: new Date().toISOString() }
-                    ]);
-                
-                if (error) {
-                    console.error('Supabase insert error:', error);
-                    throw error;
-                }
-                
-                console.log('Email inserted successfully:', data);
-                */
-                
             } catch (error) {
-                console.error('Error saving to Supabase:', error);
+                console.error('Error saving email:', error);
                 showFormMessage(this, 'Something went wrong. Please try again.', 'error');
                 submitButton.disabled = false;
                 submitButton.textContent = originalText;
@@ -192,7 +167,7 @@ formMessageStyles.textContent = `
     .form-message {
         margin-top: 10px;
         padding: 10px;
-        border-radius: var(--radius);
+        border-radius: 8px;
         font-size: 0.875rem;
     }
     

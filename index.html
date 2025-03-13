@@ -3,155 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pathway AI - Personalized AI Learning Paths</title>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <title>Pathway AI - Empowering businesses with AI-driven insights</title>
+    <meta name="description" content="Pathway AI helps businesses leverage artificial intelligence to gain valuable insights and make data-driven decisions.">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <!-- Supabase JS Library - Updated to use ESM version -->
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    
-    <!-- Supabase Configuration -->
-    <script src="config.js"></script>
 </head>
 <body>
     <header>
         <div class="container">
-            <div class="logo">
-                <h3>Pathway AI</h3>
+            <nav>
+                <div class="logo">
+                    <a href="#">
+                        <img src="assets/logo.svg" alt="Pathway AI Logo">
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+            </nav>
+            
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Unlock the Power of AI for Your Business</h1>
+                    <p>Pathway AI helps businesses leverage artificial intelligence to gain valuable insights and make data-driven decisions.</p>
+                    
+                    <form id="waitlist-form-hero" class="waitlist-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Join Waitlist</button>
+                    </form>
+                </div>
+                <div class="hero-image">
+                    <img src="assets/hero-image.svg" alt="AI-powered business insights">
+                </div>
             </div>
         </div>
     </header>
-
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>A Smarter Way to Learn – Personalized AI Learning Paths</h1>
-                    <h2>Tell us your goals, and our AI will craft a structured roadmap with deadlines, top resources, and real-world projects to keep you on track.</h2>
-                    
-                    <div class="cta-form">
-                        <form id="waitlist-form-hero">
-                            <input type="email" placeholder="Enter your email" required>
-                            <button type="submit">Join the Waitlist</button>
-                        </form>
-                        <p class="form-subtext">Be the first to get early access to AI-powered personalized learning</p>
+    
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Why Choose Pathway AI</h2>
+            
+            <div class="value-points">
+                <div class="value-point">
+                    <div class="icon">
+                        <img src="assets/icon-insights.svg" alt="Insights icon">
                     </div>
+                    <h3>Data-Driven Insights</h3>
+                    <p>Transform your raw data into actionable insights with our advanced AI algorithms.</p>
                 </div>
-                <div class="hero-image">
-                    <img src="images/dashboard-mockup.svg" alt="Pathway AI Dashboard Mockup">
+                
+                <div class="value-point">
+                    <div class="icon">
+                        <img src="assets/icon-integration.svg" alt="Integration icon">
+                    </div>
+                    <h3>Seamless Integration</h3>
+                    <p>Easily integrate with your existing systems and workflows without disruption.</p>
+                </div>
+                
+                <div class="value-point">
+                    <div class="icon">
+                        <img src="assets/icon-security.svg" alt="Security icon">
+                    </div>
+                    <h3>Enterprise-Grade Security</h3>
+                    <p>Your data is protected with state-of-the-art security measures and compliance standards.</p>
                 </div>
             </div>
-        </section>
-
-        <!-- What is Pathway AI Section -->
-        <section class="about">
-            <div class="container">
-                <h2>What is Pathway AI?</h2>
-                <p class="description">
-                    Pathway AI is your personal learning assistant that builds custom learning plans based on your specific goals, time availability, and experience level. Our advanced AI technology curates the best resources from across the web, creates structured roadmaps tailored to your needs, and keeps you accountable with smart reminders and progress tracking. No more endless searching or abandoned courses—just focused, effective learning.
-                </p>
+        </div>
+    </section>
+    
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2>How Pathway AI Works</h2>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Connect Your Data</h3>
+                    <p>Easily connect your existing data sources to our platform.</p>
+                </div>
                 
-                <div class="value-points">
-                    <div class="value-point">
-                        <div class="icon">🔥</div>
-                        <h3>No More Guesswork</h3>
-                        <p>AI picks the best resources for you based on your learning style and goals.</p>
-                    </div>
-                    <div class="value-point">
-                        <div class="icon">🎯</div>
-                        <h3>Structured Learning, Not Endless Searching</h3>
-                        <p>Stop jumping between courses—get a clear roadmap designed for your success.</p>
-                    </div>
-                    <div class="value-point">
-                        <div class="icon">⏳</div>
-                        <h3>Stay Accountable</h3>
-                        <p>AI deadlines & reminders keep you on track and motivated throughout your journey.</p>
-                    </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>AI Analysis</h3>
+                    <p>Our AI algorithms analyze your data to identify patterns and insights.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Actionable Results</h3>
+                    <p>Receive clear, actionable insights to drive your business decisions.</p>
                 </div>
             </div>
-        </section>
-
-        <!-- Second CTA Section -->
-        <section class="cta-section">
-            <div class="container">
-                <h2>Join the Future of Learning</h2>
-                <p>Get early access to AI-powered personalized learning before anyone else.</p>
-                
-                <div class="cta-form">
-                    <form id="waitlist-form-bottom">
-                        <input type="email" placeholder="Enter your email" required>
-                        <button type="submit">Join the Waitlist</button>
-                    </form>
-                    <p class="form-subtext">We'll notify you when Pathway AI launches.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section class="faq">
-            <div class="container">
-                <h2>Frequently Asked Questions</h2>
-                
+        </div>
+    </section>
+    
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-list">
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3>How does Pathway AI work?</h3>
-                        <span class="toggle-icon">+</span>
+                        <h3>What industries does Pathway AI support?</h3>
+                        <span class="faq-icon"></span>
                     </div>
                     <div class="faq-answer">
-                        <p>Pathway AI creates a structured roadmap based on your specific goals and adapts as you learn. First, you tell us what you want to learn and your current skill level. Our AI then analyzes thousands of resources to build a personalized learning path with the right sequence of topics, recommended resources, and practical projects. As you progress, the AI adjusts your path based on your feedback and performance.</p>
+                        <p>Pathway AI is designed to work across multiple industries including finance, healthcare, retail, manufacturing, and more. Our flexible platform adapts to your specific industry needs.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3>What subjects does it support?</h3>
-                        <span class="toggle-icon">+</span>
+                        <h3>How long does it take to implement Pathway AI?</h3>
+                        <span class="faq-icon"></span>
                     </div>
                     <div class="faq-answer">
-                        <p>Everything from coding & business to creative skills—our AI finds the best resources for any topic. Whether you want to learn Python programming, digital marketing, graphic design, or even niche subjects like quantum computing or sustainable agriculture, Pathway AI can create a learning path for you by finding and organizing the best available resources.</p>
+                        <p>Most businesses can be up and running with Pathway AI in just a few days. Our team will work with you to ensure a smooth implementation process.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3>Is it free?</h3>
-                        <span class="toggle-icon">+</span>
+                        <h3>Is my data secure with Pathway AI?</h3>
+                        <span class="faq-icon"></span>
                     </div>
                     <div class="faq-answer">
-                        <p>Basic version is free; premium version offers extra accountability & expert feedback. The free version gives you access to AI-generated learning paths and basic progress tracking. Premium subscribers get additional features like personalized reminders, advanced analytics, direct access to subject matter experts for feedback, and integration with popular learning platforms.</p>
+                        <p>Yes, security is our top priority. We use enterprise-grade encryption, regular security audits, and comply with industry standards to ensure your data remains secure.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What kind of support does Pathway AI offer?</h3>
+                        <span class="faq-icon"></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer comprehensive support including 24/7 technical assistance, regular training sessions, and a dedicated customer success manager for enterprise clients.</p>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
-
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Transform Your Business with AI?</h2>
+            <p>Join our waitlist to be among the first to experience the power of Pathway AI.</p>
+            
+            <form id="waitlist-form-bottom" class="waitlist-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Join Waitlist</button>
+            </form>
+        </div>
+    </section>
+    
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <h3>Pathway AI</h3>
-                    <p>© 2023 Pathway AI. All rights reserved.</p>
+                    <img src="assets/logo.svg" alt="Pathway AI Logo">
+                    <p>Empowering businesses with AI-driven insights</p>
                 </div>
+                
                 <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Contact Us</a>
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <a href="#features">Features</a>
+                        <a href="#how-it-works">How It Works</a>
+                        <a href="#">Pricing</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <a href="#">About Us</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Contact</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <a href="#">Blog</a>
+                        <a href="#">Documentation</a>
+                        <a href="#faq">FAQ</a>
+                    </div>
                 </div>
-                <div class="social-icons">
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Pathway AI. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                    <a href="#" aria-label="GitHub">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    </a>
                 </div>
             </div>
         </div>
     </footer>
-
+    
+    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 

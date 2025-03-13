@@ -3,208 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pathway AI - Empowering businesses with AI-driven insights</title>
-    <meta name="description" content="Pathway AI helps businesses leverage artificial intelligence to gain valuable insights and make data-driven decisions.">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Supabase JS Library - Using jsDelivr CDN instead of unpkg -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- Add console logging for debugging -->
-    <script>
-        console.log('Page loading...');
-        window.addEventListener('error', function(e) {
-            console.error('Global error caught:', e.message, e.filename, e.lineno);
-        });
-    </script>
+    <title>Pathway AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .links {
+            margin-top: 30px;
+        }
+        .links a {
+            display: inline-block;
+            margin-right: 15px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <a href="#">
-                        <h1>Pathway AI</h1>
-                    </a>
-                </div>
-                <div class="nav-links">
-                    <a href="#features">Features</a>
-                    <a href="#how-it-works">How It Works</a>
-                    <a href="#faq">FAQ</a>
-                </div>
-            </nav>
-            
-            <div class="hero">
-                <div class="hero-content">
-                    <h1>Unlock the Power of AI for Your Business</h1>
-                    <p>Pathway AI helps businesses leverage artificial intelligence to gain valuable insights and make data-driven decisions.</p>
-                    
-                    <form id="waitlist-form-hero" class="waitlist-form">
-                        <input type="email" placeholder="Enter your email" required>
-                        <button type="submit">Join Waitlist</button>
-                    </form>
-                </div>
-                <div class="hero-image">
-                    <div style="background-color: #f0f9ff; width: 100%; height: 300px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                        <p style="color: #2563eb; font-weight: bold;">AI-powered business insights</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    <h1>Pathway AI</h1>
     
-    <section id="features" class="features">
-        <div class="container">
-            <h2>Why Choose Pathway AI</h2>
-            
-            <div class="value-points">
-                <div class="value-point">
-                    <div class="icon">
-                        <div style="width: 60px; height: 60px; background-color: rgba(37, 99, 235, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <span style="color: #2563eb; font-size: 24px;">📊</span>
-                        </div>
-                    </div>
-                    <h3>Data-Driven Insights</h3>
-                    <p>Transform your raw data into actionable insights with our advanced AI algorithms.</p>
-                </div>
-                
-                <div class="value-point">
-                    <div class="icon">
-                        <div style="width: 60px; height: 60px; background-color: rgba(37, 99, 235, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <span style="color: #2563eb; font-size: 24px;">🔄</span>
-                        </div>
-                    </div>
-                    <h3>Seamless Integration</h3>
-                    <p>Easily integrate with your existing systems and workflows without disruption.</p>
-                </div>
-                
-                <div class="value-point">
-                    <div class="icon">
-                        <div style="width: 60px; height: 60px; background-color: rgba(37, 99, 235, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <span style="color: #2563eb; font-size: 24px;">🔒</span>
-                        </div>
-                    </div>
-                    <h3>Enterprise-Grade Security</h3>
-                    <p>Your data is protected with state-of-the-art security measures and compliance standards.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <p>Welcome to Pathway AI. This is a simplified page to verify that Vercel is correctly serving files.</p>
     
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <h2>How Pathway AI Works</h2>
-            
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Connect Your Data</h3>
-                    <p>Easily connect your existing data sources to our platform.</p>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>AI Analysis</h3>
-                    <p>Our AI algorithms analyze your data to identify patterns and insights.</p>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Actionable Results</h3>
-                    <p>Receive clear, actionable insights to drive your business decisions.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section id="faq" class="faq">
-        <div class="container">
-            <h2>Frequently Asked Questions</h2>
-            
-            <div class="faq-list">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>What industries does Pathway AI support?</h3>
-                        <span class="faq-icon"></span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Pathway AI is designed to work across multiple industries including finance, healthcare, retail, manufacturing, and more. Our flexible platform adapts to your specific industry needs.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>How long does it take to implement Pathway AI?</h3>
-                        <span class="faq-icon"></span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Most businesses can be up and running with Pathway AI in just a few days. Our team will work with you to ensure a smooth implementation process.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Is my data secure with Pathway AI?</h3>
-                        <span class="faq-icon"></span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Yes, security is our top priority. We use enterprise-grade encryption, regular security audits, and comply with industry standards to ensure your data remains secure.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>What kind of support does Pathway AI offer?</h3>
-                        <span class="faq-icon"></span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We offer comprehensive support including 24/7 technical assistance, regular training sessions, and a dedicated customer success manager for enterprise clients.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="cta">
-        <div class="container">
-            <h2>Ready to Transform Your Business with AI?</h2>
-            <p>Join our waitlist to be among the first to experience the power of Pathway AI.</p>
-            
-            <form id="waitlist-form-bottom" class="waitlist-form">
-                <input type="email" placeholder="Enter your email" required>
-                <button type="submit">Join Waitlist</button>
-            </form>
-        </div>
-    </section>
-    
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h3>Pathway AI</h3>
-                    <p>Empowering businesses with AI-driven insights</p>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Links</h4>
-                        <a href="/version.html">Version Info</a>
-                        <a href="/direct-test.html">Test Supabase</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2023 Pathway AI. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-    
-    <!-- Load config.js first -->
-    <script src="config.js"></script>
-    <!-- Then load script.js -->
-    <script src="script.js"></script>
+    <div class="links">
+        <a href="/test.html">Test Page</a>
+        <a href="/version.html">Version Info</a>
+        <a href="/direct-test.html">Supabase Test</a>
+    </div>
+
+    <script>
+        console.log('Basic index page loaded successfully');
+    </script>
 </body>
 </html> 

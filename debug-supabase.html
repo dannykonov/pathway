@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Supabase Configuration</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2563eb;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .success {
+            color: #10b981;
+        }
+        .error {
+            color: #ef4444;
+        }
+    </style>
+    <!-- Supabase JS Library -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <h1>Supabase Configuration Debug</h1>
+    <div id="results"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const resultsDiv = document.getElementById('results');
+            
+            // Add a log function
+            function log(message, type = 'info') {
+                const pre = document.createElement('pre');
+                pre.className = type;
+                pre.textContent = message;
+                resultsDiv.appendChild(pre);
+                console.log(message);
+            }
+            
+            // Check Supabase script loading
+            log('Checking if Supabase script is loaded...');
+            if (typeof supabase !== 'undefined' || typeof createClient !== 'undefined') {
+                log('✅ Supabase script loaded successfully', 'success');
+            } else {
+                log('❌ Supabase script failed to load', 'error');
+            }
+            
+            // Check config.js values
+            log('Checking config.js values...');
+            
+            // Load config.js dynamically
+            const configScript = document.createElement('script');
+            configScript.src = 'config.js';
+            configScript.onload = function() {
+                // Check SUPABASE_URL
+                if (typeof SUPABASE_URL !== 'undefined') {
+                    log(`SUPABASE_URL = ${SUPABASE_URL}`, 'success');
+                } else {
+                    log('❌ SUPABASE_URL is not defined', 'error');
+                }
+                
+                // Check SUPABASE_KEY
+                if (typeof SUPABASE_KEY !== 'undefined') {
+                    log(`SUPABASE_KEY = ${SUPABASE_KEY.substring(0, 10)}...`, 'success');
+                } else {
+                    log('❌ SUPABASE_KEY is not defined', 'error');
+                }
+                
+                // Try to initialize Supabase
+                log('Attempting to initialize Supabase...');
+                try {
+                    if (typeof createClient !== 'undefined') {
+                        const client = createClient(SUPABASE_URL, SUPABASE_KEY);
+                        log('✅ Supabase client created successfully', 'success');
+                        
+                        // Test connection
+                        log('Testing connection to Supabase...');
+                        client.from('waitlist').select('count', { count: 'exact', head: true })
+                            .then(response => {
+                                if (response.error) {
+                                    log(`❌ Connection test failed: ${response.error.message}`, 'error');
+                                } else {
+                                    log('✅ Successfully connected to Supabase', 'success');
+                                }
+                            })
+                            .catch(error => {
+                                log(`❌ Connection test error: ${error.message}`, 'error');
+                            });
+                    } else {
+                        log('❌ createClient function is not available', 'error');
+                    }
+                } catch (error) {
+                    log(`❌ Error initializing Supabase: ${error.message}`, 'error');
+                }
+            };
+            
+            configScript.onerror = function() {
+                log('❌ Failed to load config.js', 'error');
+            };
+            
+            document.body.appendChild(configScript);
+        });
+    </script>
+</body>
+</html> 

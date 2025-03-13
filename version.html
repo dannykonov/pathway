@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deployment Version</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2563eb;
+        }
+        .version {
+            background-color: #f1f5f9;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .timestamp {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Current Deployment Version</h1>
+    
+    <div class="version">
+        <p><strong>Version:</strong> 1.0.3</p>
+        <p><strong>Deployment Date:</strong> <span id="deploy-date"></span></p>
+        <p><strong>Last Commit:</strong> Force Vercel redeploy (d730bf6)</p>
+        <p class="timestamp">Page generated: <span id="timestamp"></span></p>
+    </div>
+    
+    <h2>Recent Changes</h2>
+    <ul>
+        <li>Fixed Supabase integration with hardcoded values</li>
+        <li>Added direct-test.html for isolated testing</li>
+        <li>Updated CDN from unpkg to jsDelivr</li>
+        <li>Added additional error logging</li>
+    </ul>
+    
+    <script>
+        // Set current timestamp
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // Set deployment date (this will be the time the file was served)
+        document.getElementById('deploy-date').textContent = new Date().toLocaleString();
+    </script>
+</body>
+</html> 

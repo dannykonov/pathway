@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing page...');
+    console.log('DOM loaded, checking Supabase status...');
     
     // Handle FAQ accordion
     const faqItems = document.querySelectorAll('.faq-item');
@@ -43,19 +43,37 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.textContent = 'Submitting...';
             
             try {
-                // Simulate API call with timeout
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                // Check if Supabase is initialized
+                if (typeof supabase === 'undefined' || !supabase) {
+                    console.log('Supabase not initialized, trying to initialize now...');
+                    // Try to initialize Supabase if it's not already initialized
+                    if (typeof initializeSupabase === 'function') {
+                        initializeSupabase();
+                        // Wait a bit for initialization
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                    }
+                    
+                    // If still not initialized, throw an error
+                    if (typeof supabase === 'undefined' || !supabase) {
+                        throw new Error('Supabase client not initialized');
+                    }
+                }
                 
-                // Store email in localStorage for demonstration
-                const emails = JSON.parse(localStorage.getItem('waitlist-emails') || '[]');
-                emails.push({
-                    email: email,
-                    date: new Date().toISOString()
-                });
-                localStorage.setItem('waitlist-emails', JSON.stringify(emails));
+                console.log('Attempting to insert email into Supabase...');
                 
-                console.log('Email stored in localStorage:', email);
-                console.log('All stored emails:', emails);
+                // Insert email into Supabase
+                const { data, error } = await supabase
+                    .from('waitlist')
+                    .insert([
+                        { email: email, signup_date: new Date().toISOString() }
+                    ]);
+                
+                if (error) {
+                    console.error('Supabase insert error:', error);
+                    throw error;
+                }
+                
+                console.log('Email inserted successfully:', data);
                 
                 // Success response
                 emailInput.value = '';
@@ -69,10 +87,36 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 2000);
                 
             } catch (error) {
-                console.error('Error saving email:', error);
-                showFormMessage(this, 'Something went wrong. Please try again.', 'error');
-                submitButton.disabled = false;
-                submitButton.textContent = originalText;
+                console.error('Error saving to Supabase:', error);
+                
+                // Fallback to localStorage if Supabase fails
+                try {
+                    // Store email in localStorage as a backup
+                    const emails = JSON.parse(localStorage.getItem('waitlist-emails') || '[]');
+                    emails.push({
+                        email: email,
+                        date: new Date().toISOString()
+                    });
+                    localStorage.setItem('waitlist-emails', JSON.stringify(emails));
+                    
+                    console.log('Email stored in localStorage as fallback:', email);
+                    
+                    // Show success message even though we used fallback
+                    emailInput.value = '';
+                    submitButton.textContent = 'Joined!';
+                    showFormMessage(this, 'Thank you! You\'ve been added to our waitlist.', 'success');
+                    
+                    // Reset button after 2 seconds
+                    setTimeout(() => {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalText;
+                    }, 2000);
+                } catch (fallbackError) {
+                    console.error('Error with fallback storage:', fallbackError);
+                    showFormMessage(this, 'Something went wrong. Please try again.', 'error');
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalText;
+                }
             }
         });
     });

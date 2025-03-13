@@ -3,125 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Direct Supabase Test</title>
+    <title>Supabase Direct Test</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            line-height: 1.6;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
         }
         h1 {
-            color: #2563eb;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
         }
-        button {
-            background-color: #2563eb;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px 0;
-        }
-        pre {
-            background-color: #f1f5f9;
+        .test-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
             padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
+            margin: 20px 0;
+        }
+        .result {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin-top: 10px;
         }
         .success {
-            color: #10b981;
+            color: #27ae60;
+            font-weight: bold;
         }
         .error {
-            color: #ef4444;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .links {
+            margin-top: 30px;
+        }
+        .links a {
+            display: inline-block;
+            margin-right: 15px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        .links a:hover {
+            text-decoration: underline;
         }
     </style>
-    <!-- Supabase JS Library from jsDelivr -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <h1>Direct Supabase Test</h1>
-    <p>This page tests Supabase connection directly without relying on other files.</p>
+    <h1>Supabase Direct Test</h1>
     
-    <button id="testConnection">Test Connection</button>
-    <button id="testInsert">Test Insert</button>
+    <p>This page tests Supabase connectivity directly, without relying on other scripts.</p>
     
-    <div id="results"></div>
+    <div class="test-section">
+        <h2>1. Load Supabase Library</h2>
+        <button onclick="testLoadSupabase()">Test Loading Supabase</button>
+        <div id="load-result" class="result">Not tested yet</div>
+    </div>
     
+    <div class="test-section">
+        <h2>2. Initialize Supabase Client</h2>
+        <button onclick="testInitializeSupabase()">Test Initializing Client</button>
+        <div id="init-result" class="result">Not tested yet</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. Test Supabase Connection</h2>
+        <button onclick="testSupabaseConnection()">Test Connection</button>
+        <div id="connection-result" class="result">Not tested yet</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>4. Test Waitlist Insert</h2>
+        <input type="email" id="test-email" placeholder="test@example.com" style="padding: 8px; width: 250px;">
+        <button onclick="testWaitlistInsert()">Test Insert</button>
+        <div id="insert-result" class="result">Not tested yet</div>
+    </div>
+    
+    <div class="links">
+        <a href="/">Home Page</a>
+        <a href="/version.html">Version Info</a>
+        <a href="/test.html">Simple Test</a>
+    </div>
+
     <script>
-        // Hardcoded Supabase credentials
-        const SUPABASE_URL = 'https://hkigwxgkfzfpkllcepat.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhraWd3eGdrZnpmcGtsbGNlcGF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4MjcyMTMsImV4cCI6MjA1NzQwMzIxM30.ndB7L6A-T4ldzG5GWODGWe9U2BP9vQmoiT0ImIoHHcw';
+        // Supabase configuration
+        const SUPABASE_URL = 'https://ixnfbxsodwpbfbxnwuus.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml4bmZieHNvZHdwYmZieG53dXVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM1ODQ2MjAsImV4cCI6MTk5OTE2MDYyMH0.0YQW8X8YtADQBB8BQZiIRh9lo9MBLQcXRUVFECgr4OM';
+        let supabase = null;
         
-        // Get DOM elements
-        const resultsDiv = document.getElementById('results');
-        const testConnectionBtn = document.getElementById('testConnection');
-        const testInsertBtn = document.getElementById('testInsert');
-        
-        // Log function
-        function log(message, type = 'info') {
-            const pre = document.createElement('pre');
-            pre.className = type;
-            pre.textContent = message;
-            resultsDiv.appendChild(pre);
-            console.log(message);
-        }
-        
-        // Initialize Supabase
-        let supabase;
-        try {
-            if (typeof createClient !== 'undefined') {
-                supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-                log('Supabase client initialized successfully', 'success');
-            } else {
-                log('createClient function not available', 'error');
-            }
-        } catch (error) {
-            log(`Error initializing Supabase: ${error.message}`, 'error');
-        }
-        
-        // Test connection
-        testConnectionBtn.addEventListener('click', async function() {
-            log('Testing connection to Supabase...');
+        // Test loading Supabase library
+        async function testLoadSupabase() {
+            const resultElement = document.getElementById('load-result');
+            resultElement.textContent = 'Testing...';
             
             try {
-                const { data, error, count } = await supabase
-                    .from('waitlist')
-                    .select('*', { count: 'exact', head: true });
+                // Try to load Supabase from CDN
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+                script.id = 'supabase-script';
                 
-                if (error) {
-                    log(`Connection test failed: ${error.message}`, 'error');
+                // Create a promise that resolves when the script loads
+                const loadPromise = new Promise((resolve, reject) => {
+                    script.onload = resolve;
+                    script.onerror = reject;
+                });
+                
+                // Add script to document
+                document.head.appendChild(script);
+                
+                // Wait for script to load
+                await loadPromise;
+                
+                // Check if Supabase is available
+                if (window.supabase) {
+                    resultElement.innerHTML = '<span class="success">SUCCESS:</span> Supabase library loaded successfully.';
                 } else {
-                    log(`Successfully connected to Supabase. Count: ${count}`, 'success');
+                    resultElement.innerHTML = '<span class="error">ERROR:</span> Supabase library loaded but global object not found.';
                 }
             } catch (error) {
-                log(`Connection test error: ${error.message}`, 'error');
+                resultElement.innerHTML = `<span class="error">ERROR:</span> Failed to load Supabase library: ${error.message}`;
             }
-        });
+        }
         
-        // Test insert
-        testInsertBtn.addEventListener('click', async function() {
-            log('Testing insert to waitlist table...');
-            
-            const testEmail = `test-${Date.now()}@example.com`;
+        // Test initializing Supabase client
+        function testInitializeSupabase() {
+            const resultElement = document.getElementById('init-result');
+            resultElement.textContent = 'Testing...';
             
             try {
-                const { data, error } = await supabase
-                    .from('waitlist')
-                    .insert([
-                        { email: testEmail, signup_date: new Date().toISOString() }
-                    ]);
+                // Check if Supabase is available
+                if (!window.supabase) {
+                    resultElement.innerHTML = '<span class="error">ERROR:</span> Supabase library not loaded. Run the first test first.';
+                    return;
+                }
                 
-                if (error) {
-                    log(`Insert test failed: ${error.message}`, 'error');
+                // Initialize Supabase client
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                
+                if (supabase) {
+                    resultElement.innerHTML = '<span class="success">SUCCESS:</span> Supabase client initialized successfully.';
                 } else {
-                    log(`Successfully inserted test email: ${testEmail}`, 'success');
+                    resultElement.innerHTML = '<span class="error">ERROR:</span> Failed to initialize Supabase client.';
                 }
             } catch (error) {
-                log(`Insert test error: ${error.message}`, 'error');
+                resultElement.innerHTML = `<span class="error">ERROR:</span> Error initializing Supabase client: ${error.message}`;
             }
-        });
+        }
+        
+        // Test Supabase connection
+        async function testSupabaseConnection() {
+            const resultElement = document.getElementById('connection-result');
+            resultElement.textContent = 'Testing...';
+            
+            try {
+                // Check if Supabase client is initialized
+                if (!supabase) {
+                    resultElement.innerHTML = '<span class="error">ERROR:</span> Supabase client not initialized. Run the second test first.';
+                    return;
+                }
+                
+                // Test connection by making a simple query
+                const { data, error } = await supabase.from('waitlist').select('count(*)', { count: 'exact' }).limit(1);
+                
+                if (error) {
+                    resultElement.innerHTML = `<span class="error">ERROR:</span> Failed to connect to Supabase: ${error.message}`;
+                } else {
+                    resultElement.innerHTML = `<span class="success">SUCCESS:</span> Connected to Supabase successfully. Response: ${JSON.stringify(data)}`;
+                }
+            } catch (error) {
+                resultElement.innerHTML = `<span class="error">ERROR:</span> Error testing connection: ${error.message}`;
+            }
+        }
+        
+        // Test inserting into waitlist
+        async function testWaitlistInsert() {
+            const resultElement = document.getElementById('insert-result');
+            resultElement.textContent = 'Testing...';
+            
+            try {
+                // Check if Supabase client is initialized
+                if (!supabase) {
+                    resultElement.innerHTML = '<span class="error">ERROR:</span> Supabase client not initialized. Run the second test first.';
+                    return;
+                }
+                
+                // Get test email
+                const email = document.getElementById('test-email').value || 'test@example.com';
+                
+                // Insert into waitlist
+                const { data, error } = await supabase.from('waitlist').insert([{ email }]);
+                
+                if (error) {
+                    resultElement.innerHTML = `<span class="error">ERROR:</span> Failed to insert into waitlist: ${error.message}`;
+                } else {
+                    resultElement.innerHTML = `<span class="success">SUCCESS:</span> Inserted email "${email}" into waitlist.`;
+                }
+            } catch (error) {
+                resultElement.innerHTML = `<span class="error">ERROR:</span> Error inserting into waitlist: ${error.message}`;
+            }
+        }
     </script>
 </body>
 </html> 

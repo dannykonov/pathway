@@ -4,21 +4,17 @@
     { "src": "*.html", "use": "@vercel/static" },
     { "src": "*.js", "use": "@vercel/static" },
     { "src": "*.css", "use": "@vercel/static" },
-    { "src": "assets/**", "use": "@vercel/static" },
-    { "src": "images/**", "use": "@vercel/static" },
-    { "src": "public/**", "use": "@vercel/static" },
-    { "src": "favicon.ico", "use": "@vercel/static" }
+    { "src": "*.ico", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/", "dest": "/index.html" },
-    { "src": "/assets/(.*)", "dest": "/assets/$1" },
-    { "src": "/images/(.*)", "dest": "/images/$1" },
-    { "src": "/public/(.*)", "dest": "/public/$1" },
-    { "src": "/favicon.ico", "dest": "/favicon.ico" },
+    { "src": "/test", "dest": "/test.html" },
+    { "src": "/version", "dest": "/version.html" },
+    { "src": "/direct-test", "dest": "/direct-test.html" },
     { "src": "/(.*).js", "dest": "/$1.js" },
     { "src": "/(.*).css", "dest": "/$1.css" },
     { "src": "/(.*).html", "dest": "/$1.html" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    { "src": "/(.*).ico", "dest": "/$1.ico" }
   ],
   "headers": [
     {

@@ -3,54 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deployment Version</title>
+    <title>Pathway AI - Version Info</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            line-height: 1.6;
         }
         h1 {
-            color: #2563eb;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
         }
-        .version {
-            background-color: #f1f5f9;
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+        }
+        .version-info {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
             padding: 15px;
-            border-radius: 5px;
-            font-family: monospace;
+            margin: 20px 0;
         }
-        .timestamp {
-            color: #64748b;
-            font-size: 0.9rem;
+        .changelog {
+            background-color: #f8f9fa;
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .changelog ul {
+            margin-top: 10px;
+        }
+        .links {
+            margin-top: 30px;
+        }
+        .links a {
+            display: inline-block;
+            margin-right: 15px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        .links a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <h1>Current Deployment Version</h1>
+    <h1>Pathway AI - Version Information</h1>
     
-    <div class="version">
+    <div class="version-info">
         <p><strong>Version:</strong> 1.0.3</p>
-        <p><strong>Deployment Date:</strong> <span id="deploy-date"></span></p>
-        <p><strong>Last Commit:</strong> Force Vercel redeploy (d730bf6)</p>
-        <p class="timestamp">Page generated: <span id="timestamp"></span></p>
+        <p><strong>Last Updated:</strong> <span id="deployment-date">May 2023</span></p>
+        <p><strong>Environment:</strong> <span id="environment">Production</span></p>
     </div>
     
     <h2>Recent Changes</h2>
-    <ul>
-        <li>Fixed Supabase integration with hardcoded values</li>
-        <li>Added direct-test.html for isolated testing</li>
-        <li>Updated CDN from unpkg to jsDelivr</li>
-        <li>Added additional error logging</li>
-    </ul>
+    <div class="changelog">
+        <ul>
+            <li>Fixed Supabase integration issues</li>
+            <li>Updated Vercel configuration for proper asset handling</li>
+            <li>Improved error handling for form submissions</li>
+            <li>Added fallback mechanisms for API connectivity</li>
+            <li>Created test pages for debugging</li>
+        </ul>
+    </div>
     
+    <h2>Technical Information</h2>
+    <div class="version-info">
+        <p><strong>Build Date:</strong> <span id="current-date"></span></p>
+        <p><strong>Page URL:</strong> <span id="page-url"></span></p>
+        <p><strong>Browser:</strong> <span id="browser-info"></span></p>
+    </div>
+    
+    <div class="links">
+        <a href="/">Home Page</a>
+        <a href="/test.html">Simple Test Page</a>
+        <a href="/direct-test.html">Supabase Test</a>
+    </div>
+
     <script>
-        // Set current timestamp
-        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        // Display current date as build date
+        document.getElementById('current-date').textContent = new Date().toLocaleString();
         
-        // Set deployment date (this will be the time the file was served)
-        document.getElementById('deploy-date').textContent = new Date().toLocaleString();
+        // Display page URL
+        document.getElementById('page-url').textContent = window.location.href;
+        
+        // Display browser info
+        document.getElementById('browser-info').textContent = navigator.userAgent;
+        
+        // Set deployment date to current date for demo
+        document.getElementById('deployment-date').textContent = new Date().toLocaleDateString();
     </script>
 </body>
 </html> 

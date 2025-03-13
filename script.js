@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Supabase client from config.js
-    // The supabase variable should be available from config.js
+    // Supabase should be initialized in config.js
     
     // Handle FAQ accordion
     const faqItems = document.querySelectorAll('.faq-item');
@@ -44,6 +43,11 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.textContent = 'Submitting...';
             
             try {
+                // Check if Supabase is initialized
+                if (!supabase) {
+                    throw new Error('Supabase client not initialized');
+                }
+                
                 // Insert email into Supabase
                 const { data, error } = await supabase
                     .from('waitlist') // Replace with your table name

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathway AI - Personalized AI Learning Paths</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Supabase Configuration -->
+    <script src="config.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h3>Pathway AI</h3>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>A Smarter Way to Learn – Personalized AI Learning Paths</h1>
+                    <h2>Tell us your goals, and our AI will craft a structured roadmap with deadlines, top resources, and real-world projects to keep you on track.</h2>
+                    
+                    <div class="cta-form">
+                        <form id="waitlist-form-hero">
+                            <input type="email" placeholder="Enter your email" required>
+                            <button type="submit">Join the Waitlist</button>
+                        </form>
+                        <p class="form-subtext">Be the first to get early access to AI-powered personalized learning</p>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="images/dashboard-mockup.svg" alt="Pathway AI Dashboard Mockup">
+                </div>
+            </div>
+        </section>
+
+        <!-- What is Pathway AI Section -->
+        <section class="about">
+            <div class="container">
+                <h2>What is Pathway AI?</h2>
+                <p class="description">
+                    Pathway AI is your personal learning assistant that builds custom learning plans based on your specific goals, time availability, and experience level. Our advanced AI technology curates the best resources from across the web, creates structured roadmaps tailored to your needs, and keeps you accountable with smart reminders and progress tracking. No more endless searching or abandoned courses—just focused, effective learning.
+                </p>
+                
+                <div class="value-points">
+                    <div class="value-point">
+                        <div class="icon">🔥</div>
+                        <h3>No More Guesswork</h3>
+                        <p>AI picks the best resources for you based on your learning style and goals.</p>
+                    </div>
+                    <div class="value-point">
+                        <div class="icon">🎯</div>
+                        <h3>Structured Learning, Not Endless Searching</h3>
+                        <p>Stop jumping between courses—get a clear roadmap designed for your success.</p>
+                    </div>
+                    <div class="value-point">
+                        <div class="icon">⏳</div>
+                        <h3>Stay Accountable</h3>
+                        <p>AI deadlines & reminders keep you on track and motivated throughout your journey.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Second CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Join the Future of Learning</h2>
+                <p>Get early access to AI-powered personalized learning before anyone else.</p>
+                
+                <div class="cta-form">
+                    <form id="waitlist-form-bottom">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Join the Waitlist</button>
+                    </form>
+                    <p class="form-subtext">We'll notify you when Pathway AI launches.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq">
+            <div class="container">
+                <h2>Frequently Asked Questions</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How does Pathway AI work?</h3>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Pathway AI creates a structured roadmap based on your specific goals and adapts as you learn. First, you tell us what you want to learn and your current skill level. Our AI then analyzes thousands of resources to build a personalized learning path with the right sequence of topics, recommended resources, and practical projects. As you progress, the AI adjusts your path based on your feedback and performance.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What subjects does it support?</h3>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Everything from coding & business to creative skills—our AI finds the best resources for any topic. Whether you want to learn Python programming, digital marketing, graphic design, or even niche subjects like quantum computing or sustainable agriculture, Pathway AI can create a learning path for you by finding and organizing the best available resources.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is it free?</h3>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Basic version is free; premium version offers extra accountability & expert feedback. The free version gives you access to AI-generated learning paths and basic progress tracking. Premium subscribers get additional features like personalized reminders, advanced analytics, direct access to subject matter experts for feedback, and integration with popular learning platforms.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Pathway AI</h3>
+                    <p>© 2023 Pathway AI. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact Us</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

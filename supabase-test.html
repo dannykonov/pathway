@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Simple Test</title>
+    <!-- Load Supabase directly from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #3b82f6;
+        }
+        pre {
+            background-color: #f1f5f9;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        button {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2563eb;
+        }
+        .success {
+            color: #10b981;
+            font-weight: bold;
+        }
+        .error {
+            color: #ef4444;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Supabase Simple Test</h1>
+    <p>This is a minimal test page that directly uses the Supabase client from CDN without any other dependencies.</p>
+    
+    <button id="test-button">Test Supabase Connection</button>
+    <pre id="result">Click the button to test the connection</pre>
+    
+    <script>
+        // Direct Supabase initialization
+        const SUPABASE_URL = 'https://hkigwxgkfzfpkllcepat.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhraWd3eGdrZnpmcGtsbGNlcGF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4MjcyMTMsImV4cCI6MjA1NzQwMzIxM30.ndB7L6A-T4ldzG5GWODGWe9U2BP9vQmoiT0ImIoHHcw';
+        
+        document.getElementById('test-button').addEventListener('click', async function() {
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = 'Testing connection...';
+            
+            try {
+                // Check if Supabase is available
+                if (typeof supabase === 'undefined' && typeof createClient === 'undefined') {
+                    throw new Error('Supabase client not available. Make sure the script is loaded correctly.');
+                }
+                
+                // Initialize client
+                let client;
+                if (typeof supabase !== 'undefined') {
+                    client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                    resultElement.textContent = 'Client initialized with supabase.createClient';
+                } else if (typeof createClient !== 'undefined') {
+                    client = createClient(SUPABASE_URL, SUPABASE_KEY);
+                    resultElement.textContent = 'Client initialized with createClient';
+                }
+                
+                // Test a simple query
+                resultElement.textContent = 'Client initialized, testing query...';
+                const { data, error } = await client
+                    .from('waitlist')
+                    .select('count(*)', { count: 'exact', head: true });
+                
+                if (error) {
+                    throw error;
+                }
+                
+                resultElement.innerHTML = `<span class="success">SUCCESS!</span> Connected to Supabase successfully.\n\nResponse: ${JSON.stringify(data, null, 2)}`;
+                
+            } catch (error) {
+                resultElement.innerHTML = `<span class="error">ERROR:</span> ${error.message}\n\n${error.stack || ''}`;
+                console.error('Supabase test error:', error);
+            }
+        });
+    </script>
+</body>
+</html> 

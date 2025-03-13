@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS and Supabase Debug</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #2563eb;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .success {
+            color: #10b981;
+        }
+        .error {
+            color: #ef4444;
+        }
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        button:hover {
+            background-color: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <h1>CORS and Supabase Debug</h1>
+    
+    <h2>1. Check Supabase Script Loading</h2>
+    <button onclick="loadSupabaseScript()">Load Supabase Script</button>
+    <pre id="script-result">Not tested yet</pre>
+    
+    <h2>2. Check Supabase URL Format</h2>
+    <button onclick="checkSupabaseUrl()">Check URL Format</button>
+    <pre id="url-result">Not tested yet</pre>
+    
+    <h2>3. Test CORS with Supabase</h2>
+    <button onclick="testCors()">Test CORS</button>
+    <pre id="cors-result">Not tested yet</pre>
+    
+    <h2>4. Initialize Supabase Client</h2>
+    <button onclick="initClient()">Initialize Client</button>
+    <pre id="init-result">Not tested yet</pre>
+    
+    <script>
+        // Log function
+        function log(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = type;
+        }
+        
+        // 1. Load Supabase Script
+        async function loadSupabaseScript() {
+            log('script-result', 'Loading Supabase script...', 'info');
+            
+            try {
+                // Remove any existing script
+                const existingScript = document.getElementById('supabase-script');
+                if (existingScript) {
+                    existingScript.remove();
+                }
+                
+                // Create a new script element
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+                script.id = 'supabase-script';
+                
+                // Create a promise that resolves when the script loads
+                const loadPromise = new Promise((resolve, reject) => {
+                    script.onload = resolve;
+                    script.onerror = reject;
+                });
+                
+                // Add script to document
+                document.head.appendChild(script);
+                
+                // Wait for script to load
+                await loadPromise;
+                
+                // Check if Supabase is available
+                if (window.supabase) {
+                    log('script-result', '✅ Supabase script loaded successfully. window.supabase is available.', 'success');
+                } else {
+                    log('script-result', '⚠️ Script loaded but window.supabase is not available. Checking for createClient...', 'error');
+                    
+                    // Check if createClient is available
+                    if (typeof createClient !== 'undefined') {
+                        log('script-result', '✅ createClient function is available.', 'success');
+                    } else {
+                        log('script-result', '❌ Neither window.supabase nor createClient are available.', 'error');
+                    }
+                }
+            } catch (error) {
+                log('script-result', `❌ Error loading Supabase script: ${error.message}`, 'error');
+            }
+        }
+        
+        // 2. Check Supabase URL Format
+        function checkSupabaseUrl() {
+            log('url-result', 'Checking Supabase URL format...', 'info');
+            
+            // Define the URL to test
+            const url = 'https://hkigwxgkfzfpkllcepat.supabase.co';
+            
+            try {
+                // Try to parse as URL
+                const parsedUrl = new URL(url);
+                log('url-result', `✅ URL is valid: ${parsedUrl.toString()}`, 'success');
+                
+                // Check auth endpoint
+                const authUrl = new URL('/auth/v1', url);
+                log('url-result', `✅ Auth URL is valid: ${authUrl.toString()}`, 'success');
+            } catch (error) {
+                log('url-result', `❌ URL is invalid: ${error.message}`, 'error');
+            }
+        }
+        
+        // 3. Test CORS with Supabase
+        async function testCors() {
+            log('cors-result', 'Testing CORS with Supabase...', 'info');
+            
+            try {
+                const url = 'https://hkigwxgkfzfpkllcepat.supabase.co/rest/v1/waitlist?select=count';
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhraWd3eGdrZnpmcGtsbGNlcGF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4MjcyMTMsImV4cCI6MjA1NzQwMzIxM30.ndB7L6A-T4ldzG5GWODGWe9U2BP9vQmoiT0ImIoHHcw'
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log('cors-result', `✅ CORS test successful. Response: ${JSON.stringify(data)}`, 'success');
+                } else {
+                    log('cors-result', `❌ CORS test failed. Status: ${response.status} ${response.statusText}`, 'error');
+                }
+            } catch (error) {
+                log('cors-result', `❌ CORS test error: ${error.message}`, 'error');
+            }
+        }
+        
+        // 4. Initialize Supabase Client
+        function initClient() {
+            log('init-result', 'Initializing Supabase client...', 'info');
+            
+            try {
+                // Check if Supabase script is loaded
+                if (typeof window.supabase === 'undefined' && typeof createClient === 'undefined') {
+                    log('init-result', '❌ Supabase script not loaded. Please run step 1 first.', 'error');
+                    return;
+                }
+                
+                // Define Supabase credentials
+                const supabaseUrl = 'https://hkigwxgkfzfpkllcepat.supabase.co';
+                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhraWd3eGdrZnpmcGtsbGNlcGF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4MjcyMTMsImV4cCI6MjA1NzQwMzIxM30.ndB7L6A-T4ldzG5GWODGWe9U2BP9vQmoiT0ImIoHHcw';
+                
+                // Initialize client
+                let client;
+                if (typeof window.supabase !== 'undefined') {
+                    client = window.supabase.createClient(supabaseUrl, supabaseKey);
+                    log('init-result', '✅ Client initialized using window.supabase.createClient', 'success');
+                } else if (typeof createClient !== 'undefined') {
+                    client = createClient(supabaseUrl, supabaseKey);
+                    log('init-result', '✅ Client initialized using createClient', 'success');
+                }
+                
+                // Log client details
+                log('init-result', `✅ Client initialized. Client object: ${client ? 'Valid object' : 'Invalid'}`, 'success');
+            } catch (error) {
+                log('init-result', `❌ Error initializing client: ${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+</html> 

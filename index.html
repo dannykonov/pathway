@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pathway AI</title>
+    <!-- Load Supabase JS from CDN before any other scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Load our configuration -->
+    <script src="config.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,10 +47,21 @@
         <a href="/test.html">Test Page</a>
         <a href="/version.html">Version Info</a>
         <a href="/direct-test.html">Supabase Test</a>
+        <a href="/cors-debug.html">CORS Debug</a>
     </div>
 
     <script>
         console.log('Basic index page loaded successfully');
+        
+        // Check if Supabase is available
+        if (typeof supabase !== 'undefined') {
+            console.log('Supabase client is available');
+        } else if (typeof initializeSupabase === 'function') {
+            console.log('Attempting to initialize Supabase');
+            initializeSupabase();
+        } else {
+            console.warn('Supabase client not available and initialization function not found');
+        }
     </script>
 </body>
 </html> 

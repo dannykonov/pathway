@@ -10,6 +10,15 @@ function initializeSupabase() {
   try {
     console.log('Initializing Supabase with URL:', SUPABASE_URL);
     
+    // Validate URL format first
+    try {
+      new URL(SUPABASE_URL);
+      console.log('Supabase URL is valid');
+    } catch (urlError) {
+      console.error('Invalid Supabase URL format:', urlError);
+      return;
+    }
+    
     // Check if the supabaseClient is available directly
     if (typeof supabaseClient !== 'undefined') {
       supabase = supabaseClient.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -31,7 +40,24 @@ function initializeSupabase() {
       return;
     }
     
-    console.error('Could not find Supabase client library');
+    // If we get here, try to load the script dynamically
+    console.log('Supabase client not found, attempting to load script dynamically');
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+    script.onload = function() {
+      console.log('Supabase script loaded dynamically');
+      if (window.supabase) {
+        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        console.log('Supabase initialized after dynamic script load');
+      } else {
+        console.error('Supabase script loaded but client not available');
+      }
+    };
+    script.onerror = function(error) {
+      console.error('Failed to load Supabase script dynamically:', error);
+    };
+    document.head.appendChild(script);
+    
   } catch (error) {
     console.error('Error initializing Supabase:', error);
   }

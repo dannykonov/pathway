@@ -1,0 +1,16 @@
+{
+  "name": "pathway-ai",
+  "version": "1.0.0",
+  "description": "Pathway AI Landing Page",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve",
+    "build": "echo 'No build step required'"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "dependencies": {
+    "serve": "^14.0.0"
+  }
+} 

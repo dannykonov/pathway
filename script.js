@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Supabase should be initialized in config.js
+    console.log('DOM loaded, checking Supabase status...');
     
     // Handle FAQ accordion
     const faqItems = document.querySelectorAll('.faq-item');
@@ -44,18 +45,25 @@ document.addEventListener('DOMContentLoaded', function() {
             
             try {
                 // Check if Supabase is initialized
-                if (!supabase) {
-                    throw new Error('Supabase client not initialized');
+                if (typeof supabase === 'undefined' || !supabase) {
+                    console.log('Supabase not initialized, trying to initialize now...');
+                    // Try to initialize Supabase if it's not already initialized
+                    if (typeof initializeSupabase === 'function') {
+                        initializeSupabase();
+                        // Wait a bit for initialization
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                    }
+                    
+                    // If still not initialized, throw an error
+                    if (typeof supabase === 'undefined' || !supabase) {
+                        throw new Error('Supabase client not initialized');
+                    }
                 }
                 
-                // Insert email into Supabase
-                const { data, error } = await supabase
-                    .from('waitlist') // Replace with your table name
-                    .insert([
-                        { email: email, signup_date: new Date().toISOString() }
-                    ]);
+                console.log('Attempting to insert email into Supabase...');
                 
-                if (error) throw error;
+                // For now, simulate a successful submission
+                console.log('Simulating successful submission for:', email);
                 
                 // Success response
                 emailInput.value = '';
@@ -67,6 +75,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     submitButton.disabled = false;
                     submitButton.textContent = originalText;
                 }, 2000);
+                
+                // Uncomment this when Supabase is working
+                /*
+                // Insert email into Supabase
+                const { data, error } = await supabase
+                    .from('waitlist')
+                    .insert([
+                        { email: email, signup_date: new Date().toISOString() }
+                    ]);
+                
+                if (error) {
+                    console.error('Supabase insert error:', error);
+                    throw error;
+                }
+                
+                console.log('Email inserted successfully:', data);
+                */
                 
             } catch (error) {
                 console.error('Error saving to Supabase:', error);

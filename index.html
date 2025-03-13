@@ -10,8 +10,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Supabase JS Library -->
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <!-- Supabase JS Library - Using jsDelivr CDN instead of unpkg -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Add console logging for debugging -->
+    <script>
+        console.log('Page loading...');
+        window.addEventListener('error', function(e) {
+            console.error('Global error caught:', e.message, e.filename, e.lineno);
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -213,7 +220,9 @@
         </div>
     </footer>
     
+    <!-- Load config.js first -->
     <script src="config.js"></script>
+    <!-- Then load script.js -->
     <script src="script.js"></script>
 </body>
 </html> 

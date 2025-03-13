@@ -1,6 +1,6 @@
-// Supabase Configuration
-const SUPABASE_URL = 'https://hkigwxgkfzfpkllcepat.supabase.co'; // Your Supabase project URL
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhraWd3eGdrZnpmcGtsbGNlcGF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4MjcyMTMsImV4cCI6MjA1NzQwMzIxM30.ndB7L6A-T4ldzG5GWODGWe9U2BP9vQmoiT0ImIoHHcw'; // Your Supabase anon/public key
+// Supabase Configuration - HARDCODED VALUES TO PREVENT PLACEHOLDER SUBSTITUTION
+const SUPABASE_URL = 'https://hkigwxgkfzfpkllcepat.supabase.co'; 
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhraWd3eGdrZnpmcGtsbGNlcGF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4MjcyMTMsImV4cCI6MjA1NzQwMzIxM30.ndB7L6A-T4ldzG5GWODGWe9U2BP9vQmoiT0ImIoHHcw';
 
 // Initialize Supabase client
 let supabase = null;
@@ -8,6 +8,8 @@ let supabase = null;
 // Create a function to initialize Supabase that doesn't rely on the global window.supabase
 function initializeSupabase() {
   try {
+    console.log('Initializing Supabase with URL:', SUPABASE_URL);
+    
     // Check if the supabaseClient is available directly
     if (typeof supabaseClient !== 'undefined') {
       supabase = supabaseClient.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -37,6 +39,8 @@ function initializeSupabase() {
 
 // Try to initialize when the script loads
 document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM loaded, attempting to initialize Supabase...');
+  
   // Try to initialize immediately
   initializeSupabase();
   

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Supabase Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2563eb;
+        }
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        pre {
+            background-color: #f1f5f9;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .success {
+            color: #10b981;
+        }
+        .error {
+            color: #ef4444;
+        }
+    </style>
+    <!-- Supabase JS Library from jsDelivr -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <h1>Direct Supabase Test</h1>
+    <p>This page tests Supabase connection directly without relying on other files.</p>
+    
+    <button id="testConnection">Test Connection</button>
+    <button id="testInsert">Test Insert</button>
+    
+    <div id="results"></div>
+    
+    <script>
+        // Hardcoded Supabase credentials
+        const SUPABASE_URL = 'https://hkigwxgkfzfpkllcepat.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhraWd3eGdrZnpmcGtsbGNlcGF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4MjcyMTMsImV4cCI6MjA1NzQwMzIxM30.ndB7L6A-T4ldzG5GWODGWe9U2BP9vQmoiT0ImIoHHcw';
+        
+        // Get DOM elements
+        const resultsDiv = document.getElementById('results');
+        const testConnectionBtn = document.getElementById('testConnection');
+        const testInsertBtn = document.getElementById('testInsert');
+        
+        // Log function
+        function log(message, type = 'info') {
+            const pre = document.createElement('pre');
+            pre.className = type;
+            pre.textContent = message;
+            resultsDiv.appendChild(pre);
+            console.log(message);
+        }
+        
+        // Initialize Supabase
+        let supabase;
+        try {
+            if (typeof createClient !== 'undefined') {
+                supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+                log('Supabase client initialized successfully', 'success');
+            } else {
+                log('createClient function not available', 'error');
+            }
+        } catch (error) {
+            log(`Error initializing Supabase: ${error.message}`, 'error');
+        }
+        
+        // Test connection
+        testConnectionBtn.addEventListener('click', async function() {
+            log('Testing connection to Supabase...');
+            
+            try {
+                const { data, error, count } = await supabase
+                    .from('waitlist')
+                    .select('*', { count: 'exact', head: true });
+                
+                if (error) {
+                    log(`Connection test failed: ${error.message}`, 'error');
+                } else {
+                    log(`Successfully connected to Supabase. Count: ${count}`, 'success');
+                }
+            } catch (error) {
+                log(`Connection test error: ${error.message}`, 'error');
+            }
+        });
+        
+        // Test insert
+        testInsertBtn.addEventListener('click', async function() {
+            log('Testing insert to waitlist table...');
+            
+            const testEmail = `test-${Date.now()}@example.com`;
+            
+            try {
+                const { data, error } = await supabase
+                    .from('waitlist')
+                    .insert([
+                        { email: testEmail, signup_date: new Date().toISOString() }
+                    ]);
+                
+                if (error) {
+                    log(`Insert test failed: ${error.message}`, 'error');
+                } else {
+                    log(`Successfully inserted test email: ${testEmail}`, 'success');
+                }
+            } catch (error) {
+                log(`Insert test error: ${error.message}`, 'error');
+            }
+        });
+    </script>
+</body>
+</html> 
